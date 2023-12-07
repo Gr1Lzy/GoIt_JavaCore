@@ -4,10 +4,12 @@ import org.example.module11_1.OddNames;
 import org.example.module11_2.UpperCaseSortedNames;
 import org.example.module11_3.SortedNumbers;
 import org.example.module11_4.MathRandom;
+import org.example.module11_5.ToStreamMix;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,5 +33,11 @@ public class Main {
         long seed = System.currentTimeMillis();
 
         System.out.println(MathRandom.generate(seed).toList());                         //#4
+
+
+        Stream<Integer> firstStream = Stream.of(1, 2, 3, 4);
+        Stream<Integer> secondStream = Stream.of(5, 6, 7);
+
+        System.out.println(ToStreamMix.zip(firstStream, secondStream).toList());
     }
 }
