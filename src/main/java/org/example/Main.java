@@ -1,10 +1,9 @@
 package org.example;
 
-import org.example.model.Address;
-import org.example.model.Company;
-import org.example.model.Geo;
-import org.example.model.User;
-import org.example.module13_1.HttpUserUtilities;
+import org.example.module13_1.model.Address;
+import org.example.module13_1.model.Company;
+import org.example.module13_1.model.Geo;
+import org.example.module13_1.model.User;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,5 +40,8 @@ public class Main {
         System.out.println(httpUserUtilities.getUserById(2));
 
         System.out.println(httpUserUtilities.getUserByUsername("Bret"));
+
+        System.out.println(httpUserUtilities.getAllPostsByUserId(1));
+
     }
 }
