@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import lombok.SneakyThrows;
 import org.example.module13_1.model.User;
 import org.example.module13_2.model.Post;
+import org.example.module13_3.model.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,7 +20,6 @@ import java.util.List;
 
 public class HttpUserUtilities {
     private static final String USER_URL = "https://jsonplaceholder.typicode.com/users";
-    private static final String POST_SUFFIX = "/posts";
     private static final Gson GSON = new Gson();
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
 
@@ -116,7 +116,7 @@ public class HttpUserUtilities {
     public List<Post> getAllPostsByUserId(int userId) {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(String.format("%s/%d/%s", USER_URL, userId, POST_SUFFIX)))
+                .uri(URI.create(String.format("%s/%d/posts", USER_URL, userId)))
                 .header("Content-Type", "application/json")
                 .GET()
                 .build();
@@ -141,5 +141,19 @@ public class HttpUserUtilities {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @SneakyThrows
+    public List<Todo> getAllOpenTasksByUserId(int userId) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(String.format("%s/%d/todos?completed=false", USER_URL, userId)))
+                .header("Content-Type", "application/json")
+                .GET()
+                .build();
+
+        HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+
+        return GSON.fromJson(response.body(), new TypeToken<List<Todo>>() {}.getType());
     }
 }

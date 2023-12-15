@@ -43,5 +43,7 @@ public class Main {
 
         System.out.println(httpUserUtilities.getAllPostsByUserId(1));
 
+
+        System.out.println(httpUserUtilities.getAllOpenTasksByUserId(1));
     }
 }
